@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+//latest version: 1.14 step3
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
