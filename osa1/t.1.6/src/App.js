@@ -6,10 +6,13 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const increaseByOneGood = () => setGood(good + 1)
-  const increaseByOneNeutral = () => setNeutral(neutral + 1)
-  const increaseByOneBad = () => setBad(bad + 1)
+  //const [allClicks, setAll] = useState([])
+  let allClicks = 0;
 
+  const increaseByOneGood = () => setGood(good + 1, allClicks + 1)
+  const increaseByOneNeutral = () => setNeutral(neutral + 1, allClicks + 1)
+  const increaseByOneBad = () => setBad(bad + 1, allClicks + 1)
+  
   return (
     <div>
       <h1> Give feedback </h1>
@@ -31,7 +34,9 @@ const App = () => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
-
+      <p>all {good + neutral + bad}</p>
+      <p>average {(good*1 + neutral * 0 + bad * (-1))/(good + neutral + bad)}</p>
+      <p>positive {(good/(good + neutral + bad))*100}%</p>
     </div>
   )
 }
