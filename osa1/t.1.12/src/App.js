@@ -12,7 +12,8 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-  const [points, setPoints] = useState(new Uint16Array(anecdotes.length));
+  const [points, setPoints] = useState(new Uint16Array(anecdotes.length))
+  const [mostVotes, setMostVotes] = useState(0)
 
   function randomInt(max) {
     return Math.floor(Math.random()* max)
@@ -23,15 +24,21 @@ const App = () => {
     const copy = [...points ]
     copy[selected] += 1;
     setPoints(copy);
+
+    if(copy[selected] > copy[mostVotes]) {
+      setMostVotes(selected);
+     }
   }
   
   return (
     <>
+    <h1>Anecdote of the day</h1>
     <div> {anecdotes[selected]} </div>
 
     <div> votes {points[selected]}</div>
 
     <div>
+      
       <button onClick={() => setSelected(randomInt(anecdotes.length))}>
         next anecdote
       </button>
@@ -39,6 +46,9 @@ const App = () => {
       <button onClick={() => setVote(selected, points)}>
         vote
       </button>
+      <h1>Anectode with most votes</h1>
+      <div>{anecdotes[mostVotes]}</div> 
+      has {points[mostVotes]} votes 
     </div>
     </>
   )
