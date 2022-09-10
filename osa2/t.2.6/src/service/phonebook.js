@@ -14,6 +14,11 @@ const create = (noteObject) => {
 const remove = (id) => {
     const request = axios.delete(`http://localhost:3001/persons/${id}`);
     return request.then((response) => response.data);
-  };
+};
 
-export default { getAll, create, remove};
+const update = (id, noteObject) => {
+const request = axios.put(`http://localhost:3001/persons/${id}`, noteObject);
+return request.then((response) => response.data);
+};
+
+export default { getAll, create, remove, update};

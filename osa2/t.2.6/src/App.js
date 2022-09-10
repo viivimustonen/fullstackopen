@@ -24,11 +24,30 @@ const App = () => {
       id: persons.length + 1,
       number: newNumber
     };
-    persons.some((p) => p.name === newName)
-    ? window.alert(`${newName} is already added to phonebook`)
-    : phonebook.create(noteObject).then((returnedPerson) => {
-      setPersons(persons.concat(returnedPerson));
-    });
+    
+    const personToChange = persons.some((p) => p.name === newName);
+
+    if (personToChange) {
+      const oldPerson = persons.find((p) => p.name === newName);
+      const newPerson = { ...oldPerson, number: newNumber };
+
+      window.confirm(
+        `${newName} ia already added to phonebook, replace the old number with a new one?`
+      ) &&
+        phonebook
+          .update(oldPerson.id, newPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== oldPerson.id ? person : returnedPerson
+              )
+            );
+          });
+    } else {
+      phonebook.create(noteObject).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+      });
+    }
   
     setNewName("");
     setNewNumber("");
