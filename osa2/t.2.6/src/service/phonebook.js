@@ -11,4 +11,9 @@ const create = (noteObject) => {
   return request.then((response) => response.data);
 };
 
-export default { getAll, create };
+const remove = (id) => {
+    const request = axios.delete(`http://localhost:3001/persons/${id}`);
+    return request.then((response) => response.data);
+  };
+
+export default { getAll, create, remove};

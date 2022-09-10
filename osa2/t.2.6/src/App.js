@@ -15,6 +15,7 @@ const App = () => {
       setPersons(initialPersons);
     });
   }, [])
+  
   const addPerson = (event) => {
     event.preventDefault()
     console.log('button clicked', event.target) 
@@ -48,7 +49,13 @@ const App = () => {
     setFilter(event.target.value)   
   }
 
-  
+  const handleDelete = (id, name) => {
+    window.confirm(`Delete ${name}?`) &&
+      phonebook.remove(id).then(() => {
+        const newPersons = persons.filter((item) => item.id !== id);
+        setPersons(newPersons);
+      });
+  };
 
   return (
     <div>
@@ -63,7 +70,7 @@ const App = () => {
         newNumber={newNumber}
       />
       <h2>Numbers</h2>
-      <Persons filter={filter} persons={persons} />
+      <Persons filter={filter} persons={persons} deletePerson={handleDelete}/>
     </div>
   )
 }
