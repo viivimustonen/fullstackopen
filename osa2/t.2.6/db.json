@@ -1,11 +1,6 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
-      "id": 1
-    },
-    {
       "name": "Ada Lovelace",
       "number": "39-44-5323523",
       "id": 2
@@ -24,6 +19,31 @@
       "name": "Joku Ankka",
       "id": 5,
       "number": "87654321"
+    },
+    {
+      "name": "Mikki Hiiri",
+      "id": 7,
+      "number": "1111111111"
+    },
+    {
+      "name": "Mimmi Miina",
+      "number": "22111",
+      "id": 8
+    },
+    {
+      "name": "Mikko Mallikas",
+      "number": "02020022",
+      "id": 9
+    },
+    {
+      "name": "Minni Hiiri",
+      "number": "222222222",
+      "id": 10
+    },
+    {
+      "name": "Pirkko Pirpana",
+      "number": "5555555555",
+      "id": 11
     }
   ]
 }

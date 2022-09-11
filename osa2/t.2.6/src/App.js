@@ -2,6 +2,7 @@ import { useState, useEffect} from 'react'
 import Filter from "./components/Filter"
 import PersonForm from "./components/PersonForm"
 import Persons from "./components/Persons"
+import Notification from './components/Notification'
 import phonebook from "./service/phonebook";
 
 const App = () => {
@@ -9,6 +10,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     phonebook.getAll().then((initialPersons) => {
@@ -16,12 +18,12 @@ const App = () => {
     });
   }, [])
   
+
   const addPerson = (event) => {
     event.preventDefault()
     console.log('button clicked', event.target) 
     const noteObject = {
       name: newName,
-      id: persons.length + 1,
       number: newNumber
     };
     
@@ -43,10 +45,20 @@ const App = () => {
               )
             );
           });
+          console.log('contact number changed')
+          setMessage(`Contact ${noteObject.name} number changed to ${noteObject.number}`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
     } else {
       phonebook.create(noteObject).then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
       });
+      console.log('new contact added')
+      setMessage(`Added ${noteObject.name}`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
     }
   
     setNewName("");
@@ -70,15 +82,22 @@ const App = () => {
 
   const handleDelete = (id, name) => {
     window.confirm(`Delete ${name}?`) &&
+      setMessage(`${name} deleted`)
+      setTimeout(() => {
+        setMessage(null)
+      }, 5000)
       phonebook.remove(id).then(() => {
         const newPersons = persons.filter((item) => item.id !== id);
         setPersons(newPersons);
       });
+    console.log('contact info deleted')
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={message} />
+      <></>
       <Filter handleFilter={handleFilter} filter={filter} />
       <h2>Add a new</h2>
       <PersonForm
